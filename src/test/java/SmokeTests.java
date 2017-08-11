@@ -16,6 +16,7 @@ public class SmokeTests extends BaseTests {
         loginPage= openLoginPage("https://qa.geempower.com/geempower");
         accountManagementPage=loginPage.login("testempadmin", "test123test");
         Assert.assertEquals("Account Management",accountManagementPage.getTitle());
+        Assert.assertEquals("Account Name1", accountManagementPage.getColumnNameOfFavoritesAccountsTable(2));
     }
 
 
