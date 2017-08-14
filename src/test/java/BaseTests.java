@@ -12,6 +12,7 @@ public class BaseTests {
     public void setUp(){
         this.webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
+
     }
 
     @AfterClass

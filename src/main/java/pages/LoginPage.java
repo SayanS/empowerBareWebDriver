@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends BasePage{
+public class LoginPage {
     private WebDriver webDriver;
     public LoginPage(WebDriver webDriver){
-        super(webDriver);
+        //super(webDriver);
         this.webDriver=webDriver;
+        PageFactory.initElements(webDriver, this);
     }
 
     @FindBy(how= How.XPATH, using=".//*[@id='userId']")
