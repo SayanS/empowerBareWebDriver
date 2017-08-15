@@ -35,8 +35,7 @@ public class BasePage {
                 return new HomePage(webDriver);
             case "Invoice":
                 return new InvoicePage(webDriver);
-            default:
-                return null;
+            default: return null;
         }
     }
 
