@@ -44,6 +44,26 @@ public class Table {
         return rowValues;
     }
 
+    public Integer getColumnIndex(String columnName){
+        Integer columnIndex=1;
+        for(WebElement columnHeader:table.findElements(By.xpath(".//thead/tr/th"))){
+            if(columnHeader.getText().equals(columnName)){
+                return columnIndex;
+            }else {
+                columnIndex++;
+            }
+        }
+        return null;
+    }
+
+    public List<String> getColumnValues(String columnName){
+        List<String> columnValues=new ArrayList<>();
+        for(WebElement columnRow:table.findElements(By.xpath(".//tbody/tr/td["+getColumnIndex(columnName)+"]"))){
+            columnValues.add(columnRow.getText());
+        }
+        return columnValues;
+    }
+
     public List<List<String>> getAllRowsValues(){
         List<List<String>> allRowsValues=new ArrayList<>();
         for(int i=1; i<=getRowSize();i++){

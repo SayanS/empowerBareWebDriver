@@ -14,9 +14,17 @@ public class BaseTests {
     private AccountManagementPage accountManagementPage;
 
     @BeforeSuite
-    public void setUp(){
+    public void setUp() throws IOException {
         this.webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
+
+        Properties prop = new Properties();
+        InputStream input = null;
+        input = new FileInputStream("./src/test/java/configureTests.properties");
+        prop.load(input);
+        LoginPage loginPage=new LoginPage(webDriver);
+        webDriver.navigate().to(prop.getProperty("baseURL"));
+        accountManagementPage=loginPage.login(prop.getProperty("login"), prop.getProperty("password"));
     }
 
     @BeforeClass

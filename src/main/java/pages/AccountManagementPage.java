@@ -37,7 +37,7 @@ public class AccountManagementPage extends BasePage {
         return (new Table(accountsTable)).getAllColumnName();
     }
 
-    public List<Account> getAllRowsValues() {
+    public List<Account> getAllRowsValuesOfFavoritesAccountsTable() {
         List<Account> allRowsValues = new ArrayList<>();
         Account account = new Account();
         Table table = new Table(accountsTable);
@@ -53,5 +53,8 @@ public class AccountManagementPage extends BasePage {
         return allRowsValues;
     }
 
+    public List<String> getColumnValuesOfFavoritesAccountsTable(String columnName) {
+        return (new Table(accountsTable)).getColumnValues(columnName);
+    }
 }
 

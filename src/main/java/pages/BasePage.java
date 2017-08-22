@@ -28,7 +28,7 @@ public class BasePage {
     private WebElement headerMenu;
 
     public BasePage selectItemFromHeaderMenu(String itemName) throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         moveTo("//*[contains(text(),'$itemName')]".replace("$itemName", itemName)).click();
         switch (itemName) {
             case "Home":
@@ -39,7 +39,7 @@ public class BasePage {
         }
     }
 
-    public WebElement moveTo(String xpath){
+    protected WebElement moveTo(String xpath){
         Actions actions=new Actions(webDriver);
         actions.moveToElement(webDriver.findElement(By.xpath(xpath))).perform();
         return webDriver.findElement(By.xpath(xpath));

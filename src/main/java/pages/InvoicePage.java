@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.customElements.Table;
 
 import java.util.List;
@@ -26,6 +25,8 @@ public class InvoicePage extends BasePage{
         return (new Table(invoicesTable)).getAllColumnName();
     }
 
-
+    public List<String> getColumnValuesOfInvoicesTable(String columnName){
+        return (new Table(invoicesTable)).getColumnValues(columnName);
+    }
 
 }
