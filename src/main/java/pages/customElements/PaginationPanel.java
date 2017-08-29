@@ -45,4 +45,8 @@ public class PaginationPanel {
         }
     }
 
+    public boolean isDisplayed(){
+        return paginationPanel.isDisplayed();
+    }
+
 }

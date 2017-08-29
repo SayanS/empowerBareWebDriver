@@ -1,12 +1,9 @@
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,7 +47,7 @@ public class DownloadTests {
 //        options.AddArgument("--incognito");
     }
 
-    @Test
+    @Test(groups = {"ignore"})
     public void checkDownLoad() throws IOException, InterruptedException {
         File file;
         String fileName;
@@ -66,7 +63,7 @@ public class DownloadTests {
         Assert.assertTrue(Files.deleteIfExists(file.toPath()));
     }
 
-    @Test
+    @Test(groups = {"ignore"})
     public void checkUploadFile() throws InterruptedException, AWTException {
         webDriver.navigate().to("https://drive.google.com/drive/my-drive");
         webDriver.findElement(By.xpath(".//*[@id='identifierId']")).sendKeys("garmsayan@gmail.com");
@@ -98,7 +95,7 @@ public class DownloadTests {
         }
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
-        int i = 0;
     }
+
 
 }

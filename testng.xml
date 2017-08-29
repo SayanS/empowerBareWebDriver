@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Empower" parallel="tests" thread-count="2">
+
+
+    <test name="Download" verbose="1" preserve-order="false">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="platform" value="LINUX"/>
+        <groups>
+            <run>
+                <include name="run"/>
+                <exclude name="ignore"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="DownloadTests"/>
+        </classes>
+    </test>
+
+    <test name="Smoke" verbose="1" preserve-order="false">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="platform" value="LINUX"/>
+        <groups>
+            <run>
+                <include name="run"/>
+                <exclude name="ignore"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="SmokeTests"/>
+        </classes>
+    </test>
+
+
+</suite>

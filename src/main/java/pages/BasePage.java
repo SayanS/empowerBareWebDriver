@@ -22,12 +22,12 @@ public class BasePage {
     private WebElement headerLogo;
 
     public HomePage clickOnHeaderLogo() {
+        waitVisibility(10, headerLogo);
+        moveTo(headerLogo);
         headerLogo.click();
         try {
-            waitVisabilityBy(".//div[@class='introjs-tooltip']//a[.='Skip']");
             webDriver.findElement(By.xpath(".//div[@class='introjs-tooltip']//a[.='Skip']")).click();
         }catch(Exception e){
-            webDriver.findElement(By.xpath(".//div[@class='introjs-tooltip']//a[.='Skip']")).click();
         }
         waitSpinnerInvisability(10);
         return new HomePage(webDriver);
@@ -41,7 +41,6 @@ public class BasePage {
     }
 
     public BasePage selectItemFromHeaderMenu(String itemName) throws InterruptedException {
-        Thread.sleep(10000);
         moveTo("//*[contains(text(),'$itemName')]".replace("$itemName", itemName)).click();
         switch (itemName) {
             case "Home":
@@ -60,12 +59,22 @@ public class BasePage {
         return webDriver.findElement(By.xpath(xpath));
     }
 
-    protected void waitForInvisability(WebElement webElement) {
-        (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.invisibilityOf(webElement));
+    protected WebElement moveTo(WebElement webElement) {
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(webElement).perform();
+        return webElement;
     }
 
-    protected void waitVisabilityBy(String xpath) {
-        (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    protected void waitForInvisibility(Integer second, WebElement webElement) {
+        (new WebDriverWait(webDriver, second)).until(ExpectedConditions.invisibilityOf(webElement));
+    }
+
+    protected void waitVisibility(Integer second, String xpath) {
+        (new WebDriverWait(webDriver, second)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+    protected void waitVisibility(Integer second, WebElement webElement) {
+        (new WebDriverWait(webDriver, second)).until(ExpectedConditions.visibilityOf(webElement));
     }
 
     protected void waitSpinnerInvisability(Integer second){

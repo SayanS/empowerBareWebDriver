@@ -1,8 +1,10 @@
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 import pages.AccountManagementPage;
 import pages.BasePage;
 import pages.LoginPage;
@@ -10,22 +12,33 @@ import pages.LoginPage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 public class BaseTests {
     private WebDriver webDriver;
     private BasePage basePage;
 
-    @BeforeSuite
-    public void setUp() throws IOException {
-        this.webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-    }
+//    @BeforeSuite
+//    public void setUp() throws IOException {
+//        this.webDriver = new ChromeDriver();
+//        webDriver.manage().window().maximize();
+//    }
 
-    @BeforeClass
-    public void signIn() throws IOException {
+    @BeforeClass(alwaysRun = true)
+    @Parameters({"browserName", "platform"})
+    public void signIn(String browserName, String platform) throws IOException {
         Properties prop = new Properties();
         InputStream input = null;
+
+        //System.setProperty("webdriver.gecko.driver","/usr/local/share/geckodriver.sh");
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setBrowserName(browserName);
+        cap.setPlatform(Platform.extractFromSysProperty(platform));
+        URL hostURL = new URL("http://192.168.10.61:4445/wd/hub");
+        this.webDriver = new RemoteWebDriver(hostURL, cap);
+        this.webDriver.manage().window().maximize();
+
         input = new FileInputStream("./src/test/java/configureTests.properties");
         prop.load(input);
         LoginPage loginPage=new LoginPage(webDriver);

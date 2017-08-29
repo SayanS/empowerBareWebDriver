@@ -45,7 +45,7 @@ public class HomePage extends BasePage {
     }
 
     public String getNumberOfOrdersWithStatus(String status) {
-        waitVisabilityBy(".//*[.='"+status+"']/preceding-sibling::*[1]");
+        waitVisibility(10, ".//*[.='"+status+"']/preceding-sibling::*[1]");
         return webDriver.findElement(By.xpath(".//*[.='"+status+"']/preceding-sibling::*[1]")).getText();
     }
     public OrderStatusPage openOrdersWithStatus(String status) {

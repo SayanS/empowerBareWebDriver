@@ -20,7 +20,10 @@ public class Table {
         return table.findElements(By.xpath(".//thead/tr/th[not(contains(@hidden,'hidden'))]")).size();
     }
 
-    public Integer getRowSize(){
+    public Integer getRowSize(){//.//tbody/tr/td[.='No matching records found']
+        if (table.findElement(By.xpath(".//tbody/tr[1]/td[1]")).getText().equals("No matching records found")){
+            return 0;
+        }
         return table.findElements(By.xpath(".//tbody/tr")).size();
     }
 
