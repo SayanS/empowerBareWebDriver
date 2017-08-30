@@ -1,3 +1,4 @@
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
+import java.util.Set;
 
 public class BaseTests {
     private WebDriver webDriver;
@@ -39,7 +41,7 @@ public class BaseTests {
         this.webDriver = new RemoteWebDriver(hostURL, cap);
         this.webDriver.manage().window().maximize();
 
-        input = new FileInputStream("./src/test/java/configureTests.properties");
+        input = new FileInputStream("./configureTests.properties");
         prop.load(input);
         LoginPage loginPage=new LoginPage(webDriver);
         webDriver.navigate().to(prop.getProperty("baseURL"));
@@ -56,7 +58,15 @@ public class BaseTests {
     }
 
     public AccountManagementPage getAccountManagementPage(){
+        if(webDriver.getCurrentUrl().contains("my-account/manage-accounts")){
+            return new AccountManagementPage(webDriver);
+        }
+
         return new AccountManagementPage(webDriver);
+    }
+
+    public Set<Cookie> getCookie(){
+        return webDriver.manage().getCookies();
     }
 
 

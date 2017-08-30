@@ -49,6 +49,7 @@ public class HomePage extends BasePage {
         return webDriver.findElement(By.xpath(".//*[.='"+status+"']/preceding-sibling::*[1]")).getText();
     }
     public OrderStatusPage openOrdersWithStatus(String status) {
+        waitVisibility(10, ".//*[.='"+status+"']/preceding-sibling::*[1]/ancestor::a");
         webDriver.findElement(By.xpath(".//*[.='"+status+"']/preceding-sibling::*[1]/ancestor::a")).click();
         return new OrderStatusPage(webDriver);
     }

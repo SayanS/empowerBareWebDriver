@@ -21,6 +21,15 @@ public class BasePage {
     @FindBy(how = How.XPATH, using = ".//img[@class='img-responsive img-circle']")
     private WebElement headerLogo;
 
+    @FindBy(how = How.XPATH, using = ".//div[@id='navbar']/ul/li")
+    private WebElement headerMenu;
+
+    @FindBy(how = How.XPATH, using = ".//ul[@class='top-navbar-account-info']")
+    private WebElement navbarAccountDropDown;
+
+    @FindBy(how=How.XPATH, using = ".//input[@name='product']")
+    private WebElement searchField;
+
     public HomePage clickOnHeaderLogo() {
         waitVisibility(10, headerLogo);
         moveTo(headerLogo);
@@ -33,8 +42,21 @@ public class BasePage {
         return new HomePage(webDriver);
     }
 
-    @FindBy(how = How.XPATH, using = ".//div[@id='navbar']/ul/li")
-    private WebElement headerMenu;
+    public AccountManagementPage openAccountManagementPage(){
+        if(webDriver.getCurrentUrl().contains("my-account/manage-accounts")){
+            return new AccountManagementPage(webDriver);
+        }
+        waitVisibility(15,".//ul[@class='top-navbar-account-info']");
+        moveTo(navbarAccountDropDown).click();
+        moveTo(".//a[.='Change Account']").click();
+        return new AccountManagementPage(webDriver);
+    }
+
+    public ProductSearchResultPage searchFor(String value){
+        searchField.sendKeys(value);
+        moveTo(".//a[@id='searchProductBut']").click();
+        return new ProductSearchResultPage(webDriver);
+    }
 
     protected WebDriver getWebDriver() {
         return this.webDriver;
@@ -81,5 +103,6 @@ public class BasePage {
         //id="FullScreenProgressIndicatorModalDialog"
         (new WebDriverWait(webDriver, second)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(".//div[@id='progress']")));
     }
+
 
 }

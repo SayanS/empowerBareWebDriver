@@ -8,7 +8,7 @@
         <parameter name="platform" value="LINUX"/>
         <groups>
             <run>
-                <include name="run"/>
+                <exclude name="run"/>
                 <exclude name="ignore"/>
             </run>
         </groups>
@@ -27,7 +27,7 @@
             </run>
         </groups>
         <classes>
-            <class name="SmokeTests"/>
+            <class name="HeaderSearchTests"/>
         </classes>
     </test>
 

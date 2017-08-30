@@ -1,5 +1,6 @@
 import org.junit.Assert;
 import org.testng.annotations.Test;
+import pages.AccountManagementPage;
 import pages.HomePage;
 import pages.InvoicePage;
 import pages.OrderStatusPage;
@@ -12,23 +13,26 @@ public class SmokeTests extends BaseTests {
     HomePage homePage;
     InvoicePage invoicePage;
     OrderStatusPage orderStatusPage;
+    AccountManagementPage accountManagementPage;
 
-    @Test(groups = {"ignore"})
+    @Test(groups = {"run"})
     public void isAccountInFavorite(){
-        Assert.assertTrue(getAccountManagementPage().getColumnValuesOfFavoritesAccountsTable("Account No.").contains("2244410"));
+        accountManagementPage=getBasePage().openAccountManagementPage();
+        Assert.assertTrue(accountManagementPage.getColumnValuesOfFavoritesAccountsTable("Account No.").contains("2244410"));
     }
 
-    @Test(groups = {"ignore"})
+    @Test(groups = {"run"})
     public void isDisplayedColumnNamesOfAccountTable() {
         List<String> expectedColumnNamesOfAccountTable = Arrays.asList("Account No.", "Account Name", "City", "State", "Sales Org.", "Sales Channel", "", "");
-        Assert.assertEquals(expectedColumnNamesOfAccountTable, getAccountManagementPage().getAllColumsNameOfFavoritesAccountsTable());
-        Assert.assertTrue(getAccountManagementPage().getAllRowsValuesOfFavoritesAccountsTable() != null);
+        accountManagementPage=getBasePage().openAccountManagementPage();
+        Assert.assertEquals(expectedColumnNamesOfAccountTable, accountManagementPage.getAllColumsNameOfFavoritesAccountsTable());
+        Assert.assertTrue(accountManagementPage.getAllRowsValuesOfFavoritesAccountsTable() != null);
     }
 
-    @Test(groups = {"ignore"})
+    @Test(groups = {"run"})
     public void isInvoiceExist() throws InterruptedException {
         List<String> expectedInvoiceTableHeaderColumnsName = Arrays.asList("Invoice No.", "PO No.", "GE Order No.", "Invoice Date", "Original Amount", "Current Balance", "Invoice Status", "Due Date", "Cash Discount");
-        homePage = getAccountManagementPage().clickOnHeaderLogo();
+        homePage = getBasePage().clickOnHeaderLogo();
         invoicePage=(InvoicePage) homePage.selectItemFromHeaderMenu("Invoice");
         invoicePage.getAllColumnNamesOfInvoicesTable();
 
@@ -36,7 +40,7 @@ public class SmokeTests extends BaseTests {
                           invoicePage.getColumnValuesOfInvoicesTable("Invoice No.").contains("501303480"));
     }
 
-    @Test(groups = {"ignore"})
+    @Test(groups = {"run"})
     public void searchForOrder() {
         String orderNumber="150598320";
         List<String> searchResult=new ArrayList<>();
