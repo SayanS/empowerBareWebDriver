@@ -21,6 +21,7 @@ public class BaseTests {
     private WebDriver webDriver;
     private BasePage basePage;
 
+
 //    @BeforeSuite
 //    public void setUp() throws IOException {
 //        this.webDriver = new ChromeDriver();
